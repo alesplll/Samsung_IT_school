@@ -1,19 +1,13 @@
-// Михаил Витальевич - преподаватель
 package Java.lesson1;
 
 import java.util.Scanner;
 
-public class lesson {
+public class Ex_2 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int A = scanner.nextInt();
         int B = scanner.nextInt();
-
-        int sum = A + B;
-
-        System.out.println(sum);
-
+        System.out.println(A * A + B * B);
         scanner.close();
     }
-
 }
