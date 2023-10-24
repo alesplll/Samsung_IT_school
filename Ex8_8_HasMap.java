@@ -34,6 +34,7 @@ public class Ex8_8_HasMap {
         }
 
         System.out.println(mostFrequentElement);
+        scanner.close();
     }
 
     // Метод для нахождения индекса элемента в массиве

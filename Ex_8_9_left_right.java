@@ -13,7 +13,7 @@ public class Ex_8_9_left_right {
         for (int i = 0; i < N; i++) {
             array[i] = scanner.nextInt();
         }
-
+        scanner.close();
         // Разделение массива на отрицательные и неотрицательные элементы
         int left = 0;
         int right = N - 1;
