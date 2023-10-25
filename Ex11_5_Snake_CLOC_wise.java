@@ -1,8 +1,11 @@
 package Java.lesson1;
 
-public class Ex11_5 {
+import java.util.Scanner;
+
+public class Ex11_5_Snake_CLOC_wise {
     public static void main(String[] args) {
-        int n = 2;
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
         int[][] array = new int[2 * n + 1][2 * n + 1];
 
         int num = (2 * n + 1) * (2 * n + 1) - 1;
@@ -36,5 +39,6 @@ public class Ex11_5 {
             }
             System.out.println();
         }
+        scanner.close();
     }
 }
