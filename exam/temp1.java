@@ -1,4 +1,4 @@
-package Java.lesson1.exam;
+package gh.exam;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package Java.lesson1.exam;
+package gh.exam;
 
 public class temp2 {
     public static void main(String[] args) {
