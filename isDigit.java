@@ -11,6 +11,8 @@ public class isDigit {
         } else {
             System.out.println("no");
         }
+        scanner.close();
+
     }
 
     public static boolean IsDigit(char c) {
