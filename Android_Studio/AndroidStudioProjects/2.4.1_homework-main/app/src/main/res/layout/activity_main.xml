@@ -14,36 +14,22 @@
         android:text="@string/title" />
 
     <EditText
-        android:id="@+id/a"
+        android:id="@+id/linkEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/a"
-        android:minHeight="48dp" />
-
-    <EditText
-        android:id="@+id/b"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/b"
-        android:minHeight="48dp" />
-
-    <EditText
-        android:id="@+id/c"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/c"
+        android:hint="Enter link"
         android:minHeight="48dp" />
 
     <Button
-        android:id="@+id/run"
+        android:id="@+id/downloadButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="solve"
-        android:text="@string/calculate" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:id="@+id/res"/>
+        android:onClick="downloadImage"
+        android:text="Download" />
 
+    <TextView
+        android:id="@+id/resTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24dp" />
 </LinearLayout>

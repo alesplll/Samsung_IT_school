@@ -1,56 +1,59 @@
 package ru.samsung.itschool.mdev.homework;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class MainActivity extends AppCompatActivity {
 
-    public EditText objectA, objectB, objectC;
-    public TextView res;
+    private EditText linkEditText;
+    private TextView resTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        linkEditText = findViewById(R.id.linkEditText);
+        resTextView = findViewById(R.id.resTextView);
     }
-    public void solve(View view) {
-        double a = Double.parseDouble( ((EditText)
-                findViewById(R.id.a)).getText().toString());
-        double b = Double.parseDouble( ((EditText)
-                findViewById(R.id.b)).getText().toString());
-        double c = Double.parseDouble( ((EditText)
-                findViewById(R.id.c)).getText().toString());
-        TextView res = findViewById(R.id.res);
 
-        double discriminant = b * b - 4 * a * c;
-        if(a==0 && b==0 && c==0){
-            res.setText("any");
-        } else if(a==0){
-            double root = -c/b;
-            if(root==-0.0){root=0.0;}
-            res.setText(""+root);
-        } else if (a!=0 && discriminant > 0) {
-            double root1 = ((-b + Math.sqrt(discriminant)) / (2 * a));
-            double root2 = ((-b - Math.sqrt(discriminant)) / (2 * a));
-            if(root1==-0.0){root1=0.0;}
-            if(root2==-0.0){root2=0.0;}
-            res.setText(root1 + " " + root2);
+    public void downloadImage(View view) {
+        String imageUrl = linkEditText.getText().toString();
+        new DownloadImageTask().execute(imageUrl);
+    }
 
-        } else if (discriminant == 0) {
-            double root = (-b / (2 * a));
-            if(root==-0.0){root=0.0;}
-            res.setText(""+root);
-            System.out.println("Discr ===0");
+    private class DownloadImageTask extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            try {
+                String imageUrl = params[0];
+                URL url = new URL(imageUrl);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream input = connection.getInputStream();
+                // TODO: Save the image to the "Downloads" folder
 
-        } else {
-            res.setText("none");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            resTextView.setText("Image downloaded!");
         }
     }
-
-
 }
