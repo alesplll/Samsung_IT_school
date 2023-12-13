@@ -1,7 +1,5 @@
-from dotenv import load_dotenv
+import openai
 import os
-
-
-load_dotenv()
-
-print(os.getenv("TEST"))
+import flask
+import flask_sslify
+import dotenv

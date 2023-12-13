@@ -8,10 +8,11 @@ load_dotenv()
 
 app = Flask(__name__)
 sslify = SSLify(app, permanent=True)
+
 #openai.api_key = os.getenv("OPENAI_API_KEY")
 #openai.organization = os.getenv("OPENAI_ORGANIZATION")
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"),
-                organization=os.getenv("OPENAI_ORGANIZATION"))
+#client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"),
+#               organization=os.getenv("OPENAI_ORGANIZATION"))
 
 
 @app.route('/process_message', methods=['POST'])
