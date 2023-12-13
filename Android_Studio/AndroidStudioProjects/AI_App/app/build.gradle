@@ -6,6 +6,10 @@ android {
     namespace 'com.example.ai_app'
     compileSdk 34
 
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
+
     defaultConfig {
         applicationId "com.example.ai_app"
         minSdk 29
@@ -39,8 +43,6 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.6.1'
     annotationProcessor 'androidx.room:room-compiler:2.6.1'
     implementation 'androidx.core:core:1.7.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
-
-
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
 
 }

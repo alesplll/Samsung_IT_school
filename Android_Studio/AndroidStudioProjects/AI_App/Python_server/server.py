@@ -1,12 +1,17 @@
+import os
 from flask import Flask, request, jsonify
 from flask_sslify import SSLify
-import requests
+from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
-sslify = SSLify(app)
-
-CHATGPT_API_KEY = 'CHATGPT_API_KEY'
-CHATGPT_API_URL = 'https://api.openai.com/v1/chat/completions'
+sslify = SSLify(app, permanent=True)
+#openai.api_key = os.getenv("OPENAI_API_KEY")
+#openai.organization = os.getenv("OPENAI_ORGANIZATION")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"),
+                organization=os.getenv("OPENAI_ORGANIZATION"))
 
 
 @app.route('/process_message', methods=['POST'])
@@ -15,35 +20,27 @@ def process_message():
         # Получаем текст сообщения от приложения пользователя
         user_message = request.json['message']
 
-        # Отправляем запрос к ChatGPT через API
-        ai_response = get_ai_response(user_message)
-
-        # Возвращаем ответ в приложение пользователя
+        #ai_response = get_ai_response(user_message)
+        ai_response = user_message
         return jsonify({'response': ai_response})
     except Exception as e:
-        return jsonify('error')
+        return jsonify('error_server: ' + str(e))
 
 
-def get_ai_response(user_message):
-    try:
-        headers = {
-            'Content-Type': 'application/json',
-            'Authorization': f'Bearer {CHATGPT_API_KEY}'
-        }
-
-        data = {
-            'messages': [{'role': 'system', 'content': 'You are a helpful assistant.'},
-                         {'role': 'user', 'content': user_message}]
-        }
-
-        response = requests.post(CHATGPT_API_URL, json=data, headers=headers)
-        response.raise_for_status()
-
-        ai_response = response.json()['choices'][0]['message']['content']
-        return ai_response
-    except Exception as e:
-        raise RuntimeError(f'Error in ChatGPT API request: {str(e)}')
+#def get_ai_response(user_message):
+#    try:
+#        stream = client.chat.completions.create(
+#            model='gpt-3.5-turbo-1106',
+#            messages=[{'role': 'user', 'content': user_message}],
+#            stream=True,
+#        )
+#        for chunk in stream:
+#            if chunk.choices[0].delta and chunk.choices[0].delta.content:
+#                return chunk.choices[0].delta.content
+#        return "No response from the model."
+#    except Exception as e:
+#        raise RuntimeError(f'Error in ChatGPT API request: {str(e)}')
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=4000, ssl_context=('cert.pem', 'key.pem'))
